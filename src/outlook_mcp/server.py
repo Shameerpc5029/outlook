@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Outlook MCP Server - A Model Context Protocol server for Microsoft Outlook integration.
 
@@ -6,10 +5,10 @@ This server provides tools for managing emails, contacts, calendars, and folders
 It implements the MCP stdio transport protocol for seamless integration with MCP clients.
 """
 
-import asyncio
 import json
-import sys
 from typing import Any, Dict, List
+import asyncio
+import sys
 
 from mcp.server.stdio import stdio_server
 from mcp.server import Server
@@ -460,8 +459,6 @@ class OutlookMCPServer:
 
 def main():
     """Main entry point for the MCP server."""
-    import asyncio
-    import sys
     
     # Check if we're being run directly or as a module
     if len(sys.argv) > 1 and sys.argv[1] == "--help":

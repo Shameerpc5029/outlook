@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 Outlook MCP Server - Main entry point
 
