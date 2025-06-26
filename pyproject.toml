@@ -1,10 +1,25 @@
 [project]
-name = "outlook"
+name = "outlook-mcp"
 version = "0.1.0"
-description = "Add your description here"
+description = "Microsoft Outlook MCP Server - Provides tools for managing emails, contacts, calendars, and folders via Microsoft Graph API"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.8"
 dependencies = [
+    "mcp>=1.0.0",
     "python-dotenv>=1.1.1",
     "requests>=2.32.4",
 ]
+
+[project.scripts]
+outlook-mcp = "outlook_mcp.server:main"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["outlook_mcp*"]
+
+[tool.setuptools.package-dir]
+"" = "src"

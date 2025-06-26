@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "outlook": {
+      "command": "python",
+      "args": [
+        "/Users/shameer/Documents/outlook/outlook_mcp_server.py"
+      ],
+      "env": {
+        "NANGO_CONNECTION_ID": "your_connection_id_here",
+        "NANGO_INTEGRATION_ID": "your_integration_id_here",
+        "NANGO_BASE_URL": "your_nango_base_url_here",
+        "NANGO_SECRET_KEY": "your_secret_key_here"
+      }
+    }
+  }
+}
