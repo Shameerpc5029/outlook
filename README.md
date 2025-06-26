@@ -43,9 +43,9 @@ Add this to your Claude Desktop MCP configuration:
 {
   "mcpServers": {
     "outlook": {
-      "command": "python",
+      "command": "uvx",
       "args": [
-        "/absolute/path/to/outlook-mcp/outlook_mcp_server.py"
+        "git+https://github.com/Shameerpc5029/outlook.git"
       ],
       "env": {
         "NANGO_CONNECTION_ID": "your_connection_id",
