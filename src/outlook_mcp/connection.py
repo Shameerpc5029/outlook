@@ -3,8 +3,11 @@ import os
 from typing import Any
 import requests
 from dotenv import load_dotenv
+import logging
 
 load_dotenv(override=True)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("outlook-mcp-server")
 
 
 def get_connection_credentials() -> dict[str, Any]:
@@ -14,8 +17,6 @@ def get_connection_credentials() -> dict[str, Any]:
     base_url = os.environ.get("NANGO_BASE_URL")
     secret_key = os.environ.get("NANGO_SECRET_KEY")
     
-    if not all([connection_id, integration_id, base_url, secret_key]):
-        raise ValueError("Missing required environment variables for Nango connection")
     
     url = f"{base_url}/connection/{connection_id}"
     params = {
@@ -23,7 +24,7 @@ def get_connection_credentials() -> dict[str, Any]:
         "refresh_token": "true",
     }
     headers = {"Authorization": f"Bearer {secret_key}"}
-    
+
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()  # Raise exception for bad status codes
     

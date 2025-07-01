@@ -18,18 +18,18 @@ from mcp.types import (
 )
 
 # Import tool functions
-from .tools.email import (
+from outlook_mcp.tools.email import (
     send_email, create_draft_email, send_draft_email, get_draft_emails,
     delete_draft_email, update_draft_email,
 )
-from .tools.contacts import (
+from outlook_mcp.tools.contacts import (
     create_contact, get_all_contacts, get_contact_details, update_contact, delete_contact,
 )
-from .tools.calendar import (
+from outlook_mcp.tools.calendar import (
     get_all_calendars, get_calendar_details, create_calendar, update_calendar,
     delete_calendar, get_all_events, get_event_details, create_event, delete_event,
 )
-from .tools.folders import (
+from outlook_mcp.tools.folders import (
     get_all_folders, get_folder_details, create_folder, update_folder,
     delete_folder, get_many_folders,
 )
