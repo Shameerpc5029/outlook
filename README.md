@@ -7,6 +7,7 @@ A **Model Context Protocol (MCP)** server for Microsoft Outlook integration that
 ### Prerequisites
 
 - Python 3.8 or higher
+- uv package manager
 - Microsoft Graph API access via [Nango](https://nango.dev)
 - Valid Outlook/Microsoft 365 account
 
@@ -16,7 +17,7 @@ A **Model Context Protocol (MCP)** server for Microsoft Outlook integration that
    ```bash
    git clone <repository-url>
    cd outlook-mcp
-   pip install -e .
+   uv install -e .
    ```
 
 2. **Configure environment variables:**
@@ -30,14 +31,14 @@ A **Model Context Protocol (MCP)** server for Microsoft Outlook integration that
 
 3. **Test the server:**
    ```bash
-   python outlook_mcp_server.py --help
+   uv run python outlook_mcp_server.py --help
    ```
 
 ## 🔧 MCP Client Configuration
 
 ### Claude Desktop Configuration
 
-Add this to your Claude Desktop MCP configuration:
+Add this to your Claude Desktop MCP configuration (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS or `%APPDATA%/Claude/claude_desktop_config.json` on Windows):
 
 ```json
 {
@@ -45,7 +46,7 @@ Add this to your Claude Desktop MCP configuration:
     "outlook": {
       "command": "uvx",
       "args": [
-        "git+https://github.com/Shameerpc5029/outlook.git"
+        "git+https://github.com/Shameerpc5029/outlook.git",
       ],
       "env": {
         "NANGO_CONNECTION_ID": "your_connection_id",
@@ -61,8 +62,9 @@ Add this to your Claude Desktop MCP configuration:
 ### Other MCP Clients
 
 For other MCP clients, use:
-- **Command:** `python`
-- **Args:** `["/path/to/outlook_mcp_server.py"]`
+- **Command:** `uv`
+- **Args:** `["run", "python", "outlook_mcp_server.py"]`
+- **Working Directory:** Path to the outlook-mcp directory
 - **Transport:** stdio
 - **Environment:** Set the required Nango variables
 
@@ -163,9 +165,9 @@ outlook-mcp/
 │       └── folders.py         # Folder management tools
 ├── outlook_mcp_server.py      # Standalone server entry point
 ├── main.py                    # Alternative entry point
-├── mcp_config.json           # Example MCP configuration
-├── pyproject.toml            # Package configuration
-├── README.md                 # This file
+├── pyproject.toml            # Package configuration with uv
+├── uv.lock                   # uv lockfile for reproducible builds
+├── README.md                 # This documentation
 └── .env                      # Environment variables (create this)
 ```
 
@@ -183,8 +185,8 @@ This server uses **Nango** for secure Microsoft Graph API authentication:
 ### Common Issues
 
 1. **"Missing environment variables"**
-   - Ensure all 4 Nango variables are set
-   - Check `.env` file exists and is properly formatted
+   - Ensure all 4 Nango variables are set in your Claude configuration
+   - Check `.env` file exists and is properly formatted for local development
 
 2. **"Connection failed"**
    - Verify Nango integration is active
@@ -194,19 +196,23 @@ This server uses **Nango** for secure Microsoft Graph API authentication:
 3. **"Tool execution failed"**
    - Check Microsoft Graph API permissions
    - Verify Outlook account has necessary access
-   - Review error messages in server logs
+   - Review error messages in Claude Desktop logs
+
+4. **"uv command not found"**
+   - Install uv: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+   - Or via pip: `pip install uv`
 
 ### Debug Mode
 
-Run with verbose output:
+For local development, run with verbose output:
 ```bash
-python outlook_mcp_server.py 2>debug.log
+uv run python outlook_mcp_server.py 2>debug.log
 ```
 
 ### Testing Connection
 
 ```bash
-python -c "from outlook_mcp.connection import get_access_token; print('✅ Connection successful!' if get_access_token() else '❌ Connection failed')"
+uv run python -c "from outlook_mcp.connection import get_access_token; print('✅ Connection successful!' if get_access_token() else '❌ Connection failed')"
 ```
 
 ## 🧪 Development & Testing
@@ -215,17 +221,17 @@ python -c "from outlook_mcp.connection import get_access_token; print('✅ Conne
 
 1. **Install in development mode:**
    ```bash
-   pip install -e .
+   uv install -e .
    ```
 
 2. **Run tests:**
    ```bash
-   python -m pytest tests/
+   uv run pytest tests/
    ```
 
 3. **Check tool functionality:**
    ```bash
-   python -c "from outlook_mcp.tools.email import get_draft_emails; print(get_draft_emails())"
+   uv run python -c "from outlook_mcp.tools.email import get_draft_emails; print(get_draft_emails())"
    ```
 
 ### Creating Custom Tools
@@ -238,6 +244,7 @@ python -c "from outlook_mcp.connection import get_access_token; print('✅ Conne
 ## 📋 Requirements
 
 - **Python 3.8+**
+- **uv >= 0.1.0** - Fast Python package installer and resolver
 - **mcp >= 1.0.0** - Model Context Protocol library
 - **requests >= 2.32.4** - HTTP client
 - **python-dotenv >= 1.1.1** - Environment variable management
@@ -259,6 +266,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Microsoft Graph API Documentation](https://docs.microsoft.com/en-us/graph/)
 - [Nango Integration Platform](https://nango.dev)
 - [Claude Desktop MCP Configuration](https://docs.anthropic.com/claude/desktop)
+- [uv Package Manager](https://github.com/astral-sh/uv)
 
 ## 📞 Support
 
